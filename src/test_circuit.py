@@ -1,14 +1,14 @@
 import qiskit.providers.aer.noise as noise
 from orquestra.integrations.qiskit.simulator import QiskitSimulator
-from orquestra.quantum.circuits import CNOT, Circuit, X
+from orquestra.quantum.circuits import Circuit, H, X
 
-error = noise.depolarizing_error(0.1, 2)
+error = noise.depolarizing_error(0.1, 1)
 
 # declare noise model
 noise_model = noise.NoiseModel()
-noise_model.add_all_qubit_quantum_error(error, ["cx"])
+noise_model.add_all_qubit_quantum_error(error, ["h"])
 
-circ = Circuit([CNOT(0, 1), X(0), X(1), CNOT(1, 2)])
+circ = Circuit([H(0), X(0), H(0)])
 
 # declare backend and run circuit
 qiskit_sim = QiskitSimulator(device_name="aer_simulator", noise_model=noise_model)
