@@ -14,7 +14,7 @@ circ = Circuit([H(0), X(0), H(0)])
 qiskit_sim = QiskitSimulator(device_name="aer_simulator", noise_model=noise_model)
 measurements = qiskit_sim.run_circuit_and_measure(circ, 1000)
 
-# before sandwiching, should have some errors
+# before sandwiching, should have some errors. So some results will be "01".
 print(measurements.get_counts())
 
 """
@@ -23,7 +23,7 @@ from orquestra.quantum.backends import PauliSandwichBackend
 sandwiched_qiskit_backend = PauliSandwichBackend(CNOT, None, qiskit_sim)
 measurements = qiskit_sim.run_circuit_and_measure(circ, 1000)
 
-# after sandwiching, we should have no errors
+# after sandwiching, we should have no errors. Result should be {"11": 1000}
 # getting the dictionary {"111", 1000} indicates errors have been eliminated
 print(measurements.get_counts())
 """
